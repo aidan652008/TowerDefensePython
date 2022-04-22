@@ -324,7 +324,7 @@ for row in range(6):
 def run_level(enemy_list, start_bucks, clear_tiles):
     GAME_WINDOW.blit(BACKGROUND, (0,0))
     counters = Counters(start_bucks, BUCK_RATE, STARTING_BUCK_BOOSTER, WIN_TIME)
-    for vampire in all vampires:
+    for vampire in all_vampires:
         vampire.kill()
     if clear_tiles:
         for row in tile_grid:
@@ -412,8 +412,7 @@ def run_level(enemy_list, start_bucks, clear_tiles):
 
     return game_running, program_running, counters
 
-leverl_setup = [[lvl1_enemy_types, LVL1_STARTING_BUCKS], [lvl2_enemy_types, LVL2_STARTING_BUCKS]
-
+level_setup = [[lvl1_enemy_types, LVL1_STARTING_BUCKS], [lvl2_enemy_types, LVL2_STARTING_BUCKS]
 current_level = 0
 
 
@@ -433,11 +432,24 @@ while program and current_level < len(Level_setup):
             GAME_WINDOW.blit(end_surf, (350, 200))
             display.update()
         elif current_level < len(level_setup):
-            cont_surf = end_font.render('Press Ender for Level' + str(current_level + 1), True, WHITE)
+            cont_surf = end_font.render('Press Enter for Level' + str(current_level + 1), True, WHITE)
             GAME_WINDOW.blit(cont_surf, (150, 400))
             display.update
-            #left off here
-
+            waiting_at_prompt = True
+            while waiting_at_prompt:
+                for event in pygame.event.get():
+                    if event.type == QUIT:
+                        waiting_at_prompt = False
+                        program_running = False
+                    elif event.type == KEYDOWN:
+                        if event.key == K_RETURN:
+                            waiting_at_prompt = False
+                            
+        else:
+            end_surf = end_font.render('you win!')
+            GAME_WINDOW.blit(end_surf, (350, 200))
+            display.update()
+        current_level += 1
 
 
 while program_running:

@@ -323,7 +323,7 @@ for row in range(6):
 
 def run_level(enemy_list, start_bucks, clear_tiles):
     GAME_WINDOW.blit(BACKGROUND, (0,0))
-    counters = Counters(start_bucks, BUCK_RATE, STARTING_BUCK_BOOSTER, WIN_TIME)
+    counters = Counters(start_bucks, BUCK_RATE, STARTING_BUCK_BOOSTER, WIN_TIME, FIRE_RATE)
     for vampire in all_vampires:
         vampire.kill()
     if clear_tiles:
@@ -404,7 +404,7 @@ def run_level(enemy_list, start_bucks, clear_tiles):
 
 
      
-        counters.update(GAME_WINDOW) #FIX THIS LATER
+        counters.update(GAME_WINDOW)
 
         display.update()
 
@@ -412,14 +412,16 @@ def run_level(enemy_list, start_bucks, clear_tiles):
 
     return game_running, program_running, counters
 
-level_setup = [[lvl1_enemy_types, LVL1_STARTING_BUCKS], [lvl2_enemy_types, LVL2_STARTING_BUCKS]
+
+
+level_setup = [[lvl1_enemy_types, LVL1_STARTING_BUCKS], [lvl2_enemy_types, LVL2_STARTING_BUCKS]]
 current_level = 0
 
 
 
 end_font = font.Font('pizza_font.ttf', 50)
 program_running = True
-while program and current_level < len(Level_setup):
+while program_running and current_level < len(level_setup):
     if current_level > 0:
         clear_tiles = True
     else:
@@ -440,7 +442,7 @@ while program and current_level < len(Level_setup):
                 for event in pygame.event.get():
                     if event.type == QUIT:
                         waiting_at_prompt = False
-                        program_running = False
+                        program_running = True
                     elif event.type == KEYDOWN:
                         if event.key == K_RETURN:
                             waiting_at_prompt = False
@@ -456,11 +458,47 @@ while program_running:
     for event in pygame.event.get():
         if event.type == QUIT:
             program_running = False
-    clock.tick(FRAME_RATE)
+        clock.tick(FRAME_RATE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 pygame.quit()
-
